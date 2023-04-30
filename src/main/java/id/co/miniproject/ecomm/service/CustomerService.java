@@ -1,6 +1,7 @@
 package id.co.miniproject.ecomm.service;
 
 import id.co.miniproject.ecomm.entity.Customer;
+import id.co.miniproject.ecomm.model.CustomerInfo;
 import id.co.miniproject.ecomm.repository.CustomerRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -44,6 +45,22 @@ public class CustomerService {
             return repo.save(customer);
         }catch (Exception e){
             throw new RuntimeException("Update Customer Data Failed, Try Again");
+        }
+    }
+
+    public CustomerInfo getCustInfo(String username){
+        try {
+            Customer cust = repo.getCustomerInfo(username);
+            CustomerInfo info = new CustomerInfo();
+            if(!ObjectUtils.isEmpty(cust)){
+                info.setId(cust.getId());
+                info.setNama(cust.getNama());
+                info.setUsername(cust.getUsername());
+                info.setNomor_ktp(cust.getNomor_ktp());
+            }
+            return info;
+        }catch (Exception e){
+            throw new RuntimeException("Failed Get Cust Info");
         }
     }
 }

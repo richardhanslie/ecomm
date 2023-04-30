@@ -1,6 +1,7 @@
 package id.co.miniproject.ecomm.controller;
 
 import id.co.miniproject.ecomm.entity.Customer;
+import id.co.miniproject.ecomm.model.CustomerInfo;
 import id.co.miniproject.ecomm.service.CustomerService;
 import id.co.miniproject.ecomm.util.ErrorCode;
 import id.co.miniproject.ecomm.util.ResponseUtils;
@@ -56,5 +57,14 @@ public class CustomerController {
             return responseUtils.generate(ErrorCode.General_Error, HttpStatus.BAD_REQUEST, null);
         }
         return responseUtils.generate(ErrorCode.Success, HttpStatus.ACCEPTED, newCust);
+    }
+
+    @GetMapping("/info/{username}")
+    private ResponseEntity<Object> getCustInfo(@PathVariable("username")String username){
+        CustomerInfo cust = customerService.getCustInfo(username);
+        if(StringUtils.isEmpty(cust.getId())){
+            return responseUtils.generate(ErrorCode.Not_Found, HttpStatus.NOT_FOUND, null);
+        }
+        return responseUtils.generate(ErrorCode.Success, HttpStatus.OK, cust);
     }
 }
