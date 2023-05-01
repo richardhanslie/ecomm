@@ -11,4 +11,6 @@ public interface CustomerRepo extends JpaRepository<Customer, Integer> {
 
     @Query(value = "SELECT * FROM customer WHERE username = :username", nativeQuery = true)
     Customer getCustomerInfo(@Param("username") String username);
+
+    Customer findByUsername(String username);
 }

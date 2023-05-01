@@ -17,11 +17,15 @@ public class Customer {
     @NotBlank(message = "[name] cannot be blank")
     private String username;
     @NotBlank(message = "[name] cannot be blank")
-    @Size(min = 6, max = 12)
+    @Size(min = 6)
     private String password;
     @NotBlank(message = "[name] cannot be blank")
     @Size(min = 16)
     private String nomor_ktp;
     @NotBlank(message = "[name] cannot be blank")
     private String alamat;
+    @Column(name = "role")
+    private String role;
+    @Column(name = "enabled")
+    private boolean enabled;
 }
